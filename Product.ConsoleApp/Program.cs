@@ -75,6 +75,9 @@ while (runApp)
                                      $"Created time: {product.CreatedTime}\n "+
                                      " ");
                         sw.Close();
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Product created successfully!");
+                        Console.ResetColor();
 
                     }
                     catch (Exception ex)
