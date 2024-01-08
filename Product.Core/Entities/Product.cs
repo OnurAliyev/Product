@@ -8,11 +8,11 @@ public class Product
     public decimal Price { get; set; }
     public DateTime CreatedTime { get; set; }
 
-    public Product(int productId,string productName,string roductCategory,decimal productPrice)
+    public Product(int productId,string productName,string productCategory,decimal productPrice)
     {
         Id = productId;
         Name = productName;
-        Category = roductCategory;
+        Category = productCategory;
         Price = productPrice;
         CreatedTime = DateTime.Now;
     }
