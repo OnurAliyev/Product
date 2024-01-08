@@ -1,6 +1,5 @@
-﻿using Product.Core.Utilities.Helpers;
-using Product.Core.Utilities.Exceptions;
-using Product.Core.Entities;
+﻿using Product.Core.Utilities.Exceptions;
+using Product.Core.Utilities.Helpers;
 
 string appStart = "Application started...";
 string Welcome = "Welcome!";
@@ -67,12 +66,12 @@ while (runApp)
                             throw new WrongFormatException("Wrong format price! Please try again...");
                         }
                         Product.Core.Entities.Product product = new(productId, productName, productCategory, productPrice);
-                        StreamWriter sw = new(@".\ProductDB\product.txt");
+                        StreamWriter sw = new(@".\ProductDB\product.txt",true);
                         sw.WriteLine($"ID: {product.Id}\n" +
                                      $"Name: {product.Name}\n" +
                                      $"Category: {product.Category}\n" +
                                      $"Price: {product.Price}\n" +
-                                     $"Created time: {product.CreatedTime}\n "+
+                                     $"Created time: {product.CreatedTime}\n " +
                                      " ");
                         sw.Close();
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -98,18 +97,19 @@ while (runApp)
                             {
 
                                 Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("List of the products : ");
+                                Console.WriteLine("List of the products : \n"+
+                                                  " ");
                                 Console.ResetColor();
                                 foreach (var produc in products)
                                 {
-                                    Console.ForegroundColor= ConsoleColor.Yellow;
+                                    Console.ForegroundColor = ConsoleColor.Yellow;
                                     Console.WriteLine(produc);
                                     Console.ResetColor();
                                 }
                             }
                             else
                             {
-                                Console.ForegroundColor=ConsoleColor.Red;
+                                Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("There are no created products!");
                                 Console.ResetColor();
                             }
