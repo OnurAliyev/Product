@@ -37,19 +37,19 @@ while (runApp)
     {
         if (IntOption >= 0 && IntOption <= 2)
         {
-            switch (IntOption) 
+            switch (IntOption)
             {
                 case (int)Menu.Create:
                     try
                     {
                         Console.Write("Enter product's id: ");
                         int productId;
-                        while(!int.TryParse(Console.ReadLine(), out productId))
+                        while (!int.TryParse(Console.ReadLine(), out productId) || (productId < 0))
                         {
                             throw new WrongFormatException("Wrong format id! Please try again...");
                         }
                         Console.Write("Enter product's name: ");
-                        string? productName=Console.ReadLine();
+                        string? productName = Console.ReadLine();
                         while (String.IsNullOrEmpty(productName))
                         {
                             throw new EmptyNameException("Product's name can't be null or empty");
@@ -62,27 +62,76 @@ while (runApp)
                         }
                         Console.Write("Enter product's price: ");
                         decimal productPrice;
-                        while(!decimal.TryParse(Console.ReadLine(),out productPrice))
+                        while (!decimal.TryParse(Console.ReadLine(), out productPrice) || (productPrice < 0))
                         {
-                            throw new WrongFormatException("Wrong format id! Please try again...");
+                            throw new WrongFormatException("Wrong format price! Please try again...");
                         }
                         Product.Core.Entities.Product product = new(productId, productName, productCategory, productPrice);
                         StreamWriter sw = new(@".\ProductDB\product.txt");
-                        sw.WriteLine($"ID:{product.Id}; " +
-                                     $"Name: {product.Name}; " +
-                                     $"Category: {product.Category}; " +
-                                     $"Price: {product.Category};" +
-                                     $"Created time: {product.CreatedTime} ");
+                        sw.WriteLine($"ID: {product.Id}\n" +
+                                     $"Name: {product.Name}\n" +
+                                     $"Category: {product.Category}\n" +
+                                     $"Price: {product.Price}\n" +
+                                     $"Created time: {product.CreatedTime}\n "+
+                                     " ");
                         sw.Close();
 
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(ex.Message);
                         Console.ResetColor();
                         goto case (int)Menu.Create;
                     }
+                    break;
+                case (int)Menu.GetList:
+                    try
+                    {
+                        if (File.Exists(@".\ProductDB\product.txt"))
+                        {
+                            string[] products = File.ReadAllLines(@".\ProductDB\product.txt");
+                            if (products.Length > 0)
+                            {
+
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("List of the products : ");
+                                Console.ResetColor();
+                                foreach (var produc in products)
+                                {
+                                    Console.ForegroundColor= ConsoleColor.Yellow;
+                                    Console.WriteLine(produc);
+                                    Console.ResetColor();
+                                }
+                            }
+                            else
+                            {
+                                Console.ForegroundColor=ConsoleColor.Red;
+                                Console.WriteLine("There are no created products!");
+                                Console.ResetColor();
+                            }
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Files where the products were saved was not found!");
+                            Console.ResetColor();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(ex.Message);
+                        Console.ResetColor();
+                        goto case (int)Menu.GetList;
+                    }
+                    break;
+                case 0:
+                    runApp = false;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("Application closed!\n" +
+                                      $"Press any key to close window...");
+                    Console.ResetColor();
                     break;
             }
         }
