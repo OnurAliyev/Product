@@ -45,25 +45,25 @@ while (runApp)
                         int productId;
                         while (!int.TryParse(Console.ReadLine(), out productId) || (productId < 0))
                         {
-                            throw new WrongFormatException("Wrong format id! Please try again...");
+                            throw new WrongFormatException("\nWrong format id! Please try again...\n");
                         }
                         Console.Write("Enter product's name: ");
                         string? productName = Console.ReadLine();
                         while (String.IsNullOrEmpty(productName))
                         {
-                            throw new EmptyNameException("Product's name can't be null or empty");
+                            throw new EmptyNameException("\nProduct's name can't be null or empty\n");
                         }
                         Console.Write("Enter product's category: ");
                         string? productCategory = Console.ReadLine();
                         while (String.IsNullOrEmpty(productCategory))
                         {
-                            throw new EmptyNameException("Product's category can't be null or empty");
+                            throw new EmptyNameException("\nProduct's category can't be null or empty\n");
                         }
                         Console.Write("Enter product's price: ");
                         decimal productPrice;
                         while (!decimal.TryParse(Console.ReadLine(), out productPrice) || (productPrice < 0))
                         {
-                            throw new WrongFormatException("Wrong format price! Please try again...");
+                            throw new WrongFormatException("\nWrong format price! Please try again...\n");
                         }
                         Product.Core.Entities.Product product = new(productId, productName, productCategory, productPrice);
                         StreamWriter sw = new(@".\ProductDB\product.txt",true);
@@ -75,7 +75,7 @@ while (runApp)
                                      " ");
                         sw.Close();
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Product created successfully!");
+                        Console.WriteLine("\nProduct created successfully!\n");
                         Console.ResetColor();
 
                     }
@@ -97,7 +97,7 @@ while (runApp)
                             {
 
                                 Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("List of the products : \n"+
+                                Console.WriteLine("\nList of the products : \n"+
                                                   " ");
                                 Console.ResetColor();
                                 foreach (var produc in products)
@@ -110,14 +110,14 @@ while (runApp)
                             else
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("There are no created products!");
+                                Console.WriteLine("\nThere are no created products!\n");
                                 Console.ResetColor();
                             }
                         }
                         else
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Files where the products were saved was not found!");
+                            Console.WriteLine("\nFiles where the products were saved was not found!\n");
                             Console.ResetColor();
                         }
                     }
@@ -141,14 +141,14 @@ while (runApp)
         else
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Please enter correct number!");
+            Console.WriteLine("\nPlease enter correct number!\n");
             Console.ResetColor();
         }
     }
     else
     {
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("Please enter correct format!");
+        Console.WriteLine("\nPlease enter correct format!\n");
         Console.ResetColor();
     }
 }
